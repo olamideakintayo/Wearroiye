@@ -1,0 +1,14 @@
+node_modules/
+.next/
+out/
+coverage/
+playwright-report/
+test-results/
+.vercel/
+.env*
+*.zip
+/Launch_day_video.mp4
+/Wearroiye_styling_video.mp4
+/Dreams_turned_reality_logo.jpeg
+/Wearroiye_logo.jpeg
+!.env.example
