@@ -2,7 +2,7 @@
 
 import { AnimatePresence, motion } from "motion/react";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 type NavigationProps = {
   onReplay: () => void;
@@ -18,8 +18,25 @@ const links = [
 export function Navigation({ onReplay }: NavigationProps) {
   const [open, setOpen] = useState(false);
 
+  useEffect(() => {
+    if (!open) return;
+
+    const previousOverflow = document.body.style.overflow;
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setOpen(false);
+    };
+
+    document.body.style.overflow = "hidden";
+    window.addEventListener("keydown", closeOnEscape);
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener("keydown", closeOnEscape);
+    };
+  }, [open]);
+
   return (
-    <header className="site-header">
+    <header className={`site-header${open ? " is-menu-open" : ""}`}>
       <Link className="wordmark" href="/" aria-label="Wearroiye home">
         wear<span>roiye</span>
       </Link>
